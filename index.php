@@ -6,6 +6,7 @@
     <title>Codesense</title>
     <link rel="stylesheet" type="text/css" href="style.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
 <script type="text/javascript">
     $(document).ready(function () {
         $("#re_projectms").change(function () {
@@ -24,6 +25,7 @@
         });
     });
 </script>
+
 </head>
 <body>
 
@@ -34,46 +36,40 @@
                   <input type="text" name="first_name" placeholder="Enter your name" autocomplete="off">
                   <label for="customerName">Customer Name</label>
                 </div>
+
                 <div class="column">
                   <input type="text" name="id_number" placeholder="Enter your NIC number" autocomplete="off">
                   <label for="customerNIC">Customer NIC</label>
                 </div>
-            </div>
+    </div>
 
-            <div class="row">
+
+    <div class="row">
                 <div class="column">
-                <select class="form-control" id="re_projectms" name="re_projectms"> <!-- Corrected typo: "from-control" to "form-control" -->
-            <option selected disabled>Select Project</option>
-            <?php
-            require 'data.php';
-            $re_projectms = loadAuthors();
-            foreach ($re_projectms as $re_project) { // Renamed variable to avoid conflict
+                <select class="form-control" id="re_projectms" name="re_projectms"> 
+                <option selected disabled>Select Project</option>
+                <?php
+                require 'data.php';
+                $re_projectms = loadAuthors();
+                foreach ($re_projectms as $re_project) { // Renamed variable to avoid conflict
                 echo "<option value='" . $re_project['prj_id'] . "'>" . $re_project['project_name'] . "</option>"; // Removed unnecessary attribute
-            }
-            ?>
-        </select>
-        <label for="re_projectms">Select Project</label>
-</div>
-</div>
+                }
+                ?>
+                </select>
+                <label for="re_projectms">Select Project</label>
+                </div>
 
-
-<div class="row">
                 <div class="column">
                 <select class="form-control" id="re_prjaclotdata" name="re_prjaclotdata"> <!-- Corrected typo: "from-control" to "form-control" -->
-            <option selected disabled>Select Lot</option>
-        </select>
+                <option selected disabled>Select Lot</option>
+                </select>
                 <label for="re_prjaclotdata">Select Lot</label> 
-</div>
-</div>
+                </div>
+    </div>
 
-
-
-
-
-
-            <div class="btn">
+    <div class="btn">
                 <button type="submit">Create</button>
-            </div>
+    </div>
             
     </form>
 
