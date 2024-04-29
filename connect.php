@@ -1,4 +1,5 @@
 <?php
+//connect.php
 $con = new mysqli('localhost', 'root', 'Sandali24&$', 'selectiontest');
 
 if ($con) {
@@ -10,11 +11,25 @@ if ($con) {
         $sellingPrice = floatval($_POST['sellingPrice']);
         $numInstallments = intval($_POST['res_date']);
 
+        // Get the reservation date from the form
+        $reservationDate = $_POST['reservation_date'];
+        $selectedProjectId = $_POST['re_projectms']; // Get the selected project ID
+        $selectedLotId = $_POST['re_prjaclotdata'];// Get the selected lot ID
+
+
+        // Insert data into the re_reservation table
+    $sql = "INSERT INTO re_resevation (res_date, seling_price, prj_id, lot_id) VALUES ('$reservationDate', '$sellingPrice', '$selectedProjectId', '$selectedLotId')";
+    if ($con->query($sql) === TRUE) {
+        echo "Reservation data inserted successfully!";
+    } else {
+        echo "Error: " . $sql . "<br>" . $con->error;
+    }
+
         // Calculate the installment amount
         $installmentAmount = $sellingPrice / $numInstallments;
 
         // Get the reservation date from the form
-        $reservationDate = $_POST['reservation_date'];
+        // $reservationDate = $_POST['reservation_date'];
 
         // Create the payment schedule
         for ($i = 1; $i <= $numInstallments; $i++) {

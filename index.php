@@ -77,6 +77,19 @@
                 <div class="column">
                 <select class="form-control" id="re_prjaclotdata" name="re_prjaclotdata"> 
                 <option selected disabled>Select Lot</option>
+                <?php
+            // Assuming you have a function to load lots based on the selected project ID
+            // Modify this according to your actual implementation
+            $selectedProjectId = isset($_POST['re_projectms']) ? $_POST['re_projectms'] : null;
+            if ($selectedProjectId) {
+                $lots = loadLotsByProjectId($selectedProjectId);
+                foreach ($lots as $lot) { 
+                    echo "<option value='" . $lot['lot_id'] . "'>" . $lot['lot_number'] . "</option>"; 
+                }
+            } else {
+                echo "<option disabled>No lots available</option>";
+            }
+            ?>
                 </select>
                 <label for="re_prjaclotdata">Select Lot</label> 
                 </div>
