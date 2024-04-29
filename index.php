@@ -95,7 +95,8 @@
                 </div>
 
                 <div class="column">
-                 
+                <input type="text" name="res_date" placeholder="Number of Instalments " autocomplete="off">
+                <label for="customerName">Number of Instalments (max 6 months)</label>
                 </div>
     </div>
 
