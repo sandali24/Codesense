@@ -7,6 +7,8 @@
     <link rel="stylesheet" type="text/css" href="style.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
+
+
 <script type="text/javascript">
     $(document).ready(function () {
         $("#re_projectms").change(function () {
@@ -19,12 +21,25 @@
                 console.log(re_prjaclotdata);
                 re_prjaclotdata = JSON.parse(re_prjaclotdata);
                 re_prjaclotdata.forEach(function (re_prjaclotdata) {
-                    $('#re_prjaclotdata').append('<option>' + re_prjaclotdata.lot_number + '</option>'); // Corrected property name
+                    $('#re_prjaclotdata').append('<option>' + re_prjaclotdata.lot_number + '</option>');
                 });
+            });
+        });
+
+        $("#re_prjaclotdata").change(function () {
+            var lotId = $("#re_prjaclotdata").val();
+            $.ajax({
+                url: 'getSellingPrice.php',
+                method: 'post',
+                data: 'lotId=' + lotId,
+            }).done(function (sellingPrice) {
+                console.log(sellingPrice);
+                $('#sellingPrice').val(sellingPrice); 
             });
         });
     });
 </script>
+
 
 </head>
 <body>
@@ -51,8 +66,8 @@
                 <?php
                 require 'data.php';
                 $re_projectms = loadAuthors();
-                foreach ($re_projectms as $re_project) { // Renamed variable to avoid conflict
-                echo "<option value='" . $re_project['prj_id'] . "'>" . $re_project['project_name'] . "</option>"; // Removed unnecessary attribute
+                foreach ($re_projectms as $re_project) { 
+                echo "<option value='" . $re_project['prj_id'] . "'>" . $re_project['project_name'] . "</option>"; 
                 }
                 ?>
                 </select>
@@ -60,10 +75,15 @@
                 </div>
 
                 <div class="column">
-                <select class="form-control" id="re_prjaclotdata" name="re_prjaclotdata"> <!-- Corrected typo: "from-control" to "form-control" -->
+                <select class="form-control" id="re_prjaclotdata" name="re_prjaclotdata"> 
                 <option selected disabled>Select Lot</option>
                 </select>
                 <label for="re_prjaclotdata">Select Lot</label> 
+                </div>
+
+                <div class="column">
+                <input type="text" id="sellingPrice" name="sellingPrice" readonly> 
+                <label for="sellingPrice">Selling Price</label> 
                 </div>
     </div>
 
@@ -92,9 +112,7 @@
 
         
 
-        <!-- <label for="lot">Select Lot:</label>
-        <select id="lot" name="lot">
-        </select><br> -->
+        
 
         <!-- <label for="selling_price">Selling Price:</label>
         <input type="number" id="selling_price" name="selling_price" readonly><br> -->

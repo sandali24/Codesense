@@ -13,8 +13,7 @@ class DbConnect {
             return $conn;
         } catch (PDOException $e) {
             echo 'Connection failed: ' . $e->getMessage();
-            // You might want to handle the error more gracefully (e.g., log it or display a user-friendly message)
-            die(); // Terminate script execution
+            die();
         }
     }
 }
