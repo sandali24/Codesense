@@ -87,6 +87,19 @@
                 </div>
     </div>
 
+
+    <div class="row">
+                <div class="column">
+                <input type="date" id="reservation_date" name="reservation_date" required>
+                <label for="reservation_date">Reservation Date</label>
+                </div>
+
+                <div class="column">
+                 
+                </div>
+    </div>
+
+
     <div class="btn">
                 <button type="submit">Create</button>
     </div>
@@ -114,11 +127,9 @@
 
         
 
-        <!-- <label for="selling_price">Selling Price:</label>
-        <input type="number" id="selling_price" name="selling_price" readonly><br> -->
+        
 
-        <!-- <label for="reservation_date">Reservation Date:</label>
-        <input type="date" id="reservation_date" name="reservation_date" required><br> -->
+        
 
         <!-- <label for="instalments">Number of Instalments (max 6 months):</label>
         <input type="number" id="instalments" name="instalments" min="1" max="6" required><br> -->
