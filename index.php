@@ -5,6 +5,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Codesense</title>
     <link rel="stylesheet" type="text/css" href="style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#re_projectms").change(function () {
+            var aid = $("#re_projectms").val();
+            $.ajax({
+                url: 'data.php',
+                method: 'post',
+                data: 'aid=' + aid,
+            }).done(function (re_prjaclotdata) {
+                console.log(re_prjaclotdata);
+                re_prjaclotdata = JSON.parse(re_prjaclotdata);
+                re_prjaclotdata.forEach(function (re_prjaclotdata) {
+                    $('#re_prjaclotdata').append('<option>' + re_prjaclotdata.lot_number + '</option>'); // Corrected property name
+                });
+            });
+        });
+    });
+</script>
 </head>
 <body>
 
@@ -23,39 +42,34 @@
 
             <div class="row">
                 <div class="column">
-                <select name="project_name">
-                <option value="" disabled selected hidden>--Select Project--</option>
-                <?php
-                            // Connect to the database
-                            $con = new mysqli('localhost', 'root', 'Sandali24&$', 'selectiontest');
-
-                            // Check connection
-                            if ($con->connect_error) {
-                                die("Connection failed: " . $con->connect_error);
-                            }
-
-                            // Query to select project names from re_projectms table
-                            $sql = "SELECT project_name FROM re_projectms";
-                            $result = $con->query($sql);
-
-                            // Check if any projects are retrieved
-                            if ($result->num_rows > 0) {
-                                // Output data of each row
-                                while($row = $result->fetch_assoc()) {
-                                    echo "<option value='" . $row['project_name'] . "'>" . $row['project_name'] . "</option>";
-                                }
-                            } else {
-                                echo "<option value=''>No projects found</option>";
-                            }
-
-                            // Close database connection
-                            $con->close();
-                        ?>
-               
-                </select>
-                    <label for="projectName">Select Project</label>
+                <select class="form-control" id="re_projectms" name="re_projectms"> <!-- Corrected typo: "from-control" to "form-control" -->
+            <option selected disabled>Select Project</option>
+            <?php
+            require 'data.php';
+            $re_projectms = loadAuthors();
+            foreach ($re_projectms as $re_project) { // Renamed variable to avoid conflict
+                echo "<option value='" . $re_project['prj_id'] . "'>" . $re_project['project_name'] . "</option>"; // Removed unnecessary attribute
+            }
+            ?>
+        </select>
+        <label for="re_projectms">Select Project</label>
 </div>
 </div>
+
+
+<div class="row">
+                <div class="column">
+                <select class="form-control" id="re_prjaclotdata" name="re_prjaclotdata"> <!-- Corrected typo: "from-control" to "form-control" -->
+            <option selected disabled>Select Lot</option>
+        </select>
+                <label for="re_prjaclotdata">Select Lot</label> 
+</div>
+</div>
+
+
+
+
+
 
             <div class="btn">
                 <button type="submit">Create</button>
