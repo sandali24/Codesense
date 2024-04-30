@@ -45,7 +45,7 @@
 <body>
 
     <div class="container">
-    <form action="connect.php" method="post">
+    <form action="connect2.php" method="post">
     <div class="row">
                 <div class="column">
                   <input type="text" name="first_name" placeholder="Enter your name" autocomplete="off">
