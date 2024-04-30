@@ -5,13 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Codesense</title>
     <link rel="stylesheet" type="text/css" href="style.css">
+    <!-- Include jQuery library -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
 
-
+<!-- JavaScript code for handling form interactions -->
 <script type="text/javascript">
     $(document).ready(function () {
         $("#re_projectms").change(function () {
+            // Get the selected project ID and Send AJAX request to fetch lot numbers for the selected project
             var aid = $("#re_projectms").val();
             $.ajax({
                 url: 'data.php',
@@ -20,6 +22,7 @@
             }).done(function (re_prjaclotdata) {
                 console.log(re_prjaclotdata);
                 re_prjaclotdata = JSON.parse(re_prjaclotdata);
+                // Populate 're_prjaclotdata' dropdown with fetched lot numbers
                 re_prjaclotdata.forEach(function (re_prjaclotdata) {
                     $('#re_prjaclotdata').append('<option>' + re_prjaclotdata.lot_number + '</option>');
                 });
@@ -45,7 +48,7 @@
 <body>
 
     <div class="container">
-    <form action="connect2.php" method="post">
+    <form action="connect.php" method="post">
     <div class="row">
                 <div class="column">
                   <input type="text" name="first_name" placeholder="Enter your name" autocomplete="off">
@@ -65,7 +68,7 @@
                 <option selected disabled>Select Project</option>
                 <?php
                 require 'data.php';
-                $re_projectms = loadAuthors();
+                $re_projectms = loadProjects();
                 foreach ($re_projectms as $re_project) { 
                 echo "<option value='" . $re_project['prj_id'] . "'>" . $re_project['project_name'] . "</option>"; 
                 }
@@ -78,18 +81,16 @@
                 <select class="form-control" id="re_prjaclotdata" name="re_prjaclotdata"> 
                 <option selected disabled>Select Lot</option>
                 <?php
-            // Assuming you have a function to load lots based on the selected project ID
-            // Modify this according to your actual implementation
-            $selectedProjectId = isset($_POST['re_projectms']) ? $_POST['re_projectms'] : null;
-            if ($selectedProjectId) {
-                $lots = loadLotsByProjectId($selectedProjectId);
-                foreach ($lots as $lot) { 
-                    echo "<option value='" . $lot['lot_id'] . "'>" . $lot['lot_number'] . "</option>"; 
-                }
-            } else {
-                echo "<option disabled>No lots available</option>";
-            }
-            ?>
+                 $selectedProjectId = isset($_POST['re_projectms']) ? $_POST['re_projectms'] : null;
+                 if ($selectedProjectId) {
+                 $lots = loadLotsByProjectId($selectedProjectId);
+                 foreach ($lots as $lot) { 
+                 echo "<option value='" . $lot['lot_id'] . "'>" . $lot['lot_number'] . "</option>"; 
+                 }
+                 } else {
+                 echo "<option disabled>No lots available</option>";
+                 }
+               ?>
                 </select>
                 <label for="re_prjaclotdata">Select Lot</label> 
                 </div>

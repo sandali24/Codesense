@@ -1,4 +1,5 @@
 <?php
+// Include the DbConnect.php file to establish a database connection
 require 'DbConnect.php';
 
 if (isset($_POST['lotId'])) {
@@ -9,6 +10,6 @@ if (isset($_POST['lotId'])) {
     $stmt->bindParam(':lotId', $_POST['lotId'], PDO::PARAM_INT); 
     $stmt->execute();
     
-    echo $stmt->fetchColumn();  // This will return only the first column from the first row of your result set, i.e., sale_val.
+    echo $stmt->fetchColumn();
 }
 ?>
