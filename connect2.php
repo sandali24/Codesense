@@ -31,15 +31,6 @@ if ($con) {
                 $projectName = $projectRow['project_name'];
             }
 
-
-
-
-
-
-
-
-
-
             // Insert data into the re_resevation table
             $sql = "INSERT INTO re_resevation (cus_code,res_date, seling_price, prj_id, lot_id) VALUES ('$cus_code','$reservationDate', '$sellingPrice', '$selectedProjectId', '$selectedLotId')";
             if ($con->query($sql) === TRUE) {
@@ -64,6 +55,16 @@ if ($con) {
                             <td>Some schedule</td>
                         </tr>
                     </table>";
+
+// Create the payment schedule table
+echo "<br><br>";
+echo "<table border='1'>
+        <tr>
+            <th>Payment Date</th>
+            <th>Amount</th>
+        </tr>";
+
+
             } else {
                 echo "Error: " . $sql . "<br>" . $con->error;
             }
@@ -82,6 +83,13 @@ if ($con) {
         for ($i = 1; $i <= $numInstallments; $i++) {
             // Calculate the due date for each installment
             $dueDate = date('Y-m-d', strtotime("+$i months", strtotime($reservationDate)));
+            echo "<tr>
+            <td>$dueDate</td>
+            <td>$installmentAmount</td>
+          </tr>";
+}
+
+echo "</table>";
 
             // Insert data into the re_salesadvanceshedule table
             // (Replace with your actual table and column names)
@@ -93,8 +101,7 @@ if ($con) {
                 die(mysqli_error($con));
             }
         }
-    }
-} else {
+    } else {
     die(mysqli_error($con));
 }
 ?>
