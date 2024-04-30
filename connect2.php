@@ -20,6 +20,7 @@ if ($con) {
         if ($con->query($sql) === TRUE) {
             // Retrieve the auto-generated cus_code
             $cus_code = $con->insert_id;
+            $res_code = $con->insert_id;
 
             // Retrieve the project name based on the selected project ID
             $projectName = '';
@@ -84,8 +85,8 @@ if ($con) {
 
             // Insert data into the re_salesadvanceshedule table
             // (Replace with your actual table and column names)
-            $sql = "INSERT INTO re_salesadvanceshedule (installment_number, amount, due_date)
-                    VALUES ($i, $installmentAmount, '$dueDate')";
+            $sql = "INSERT INTO re_salesadvanceshedule (res_code,installment_number, amount, due_date)
+                    VALUES ($res_code,$i, $installmentAmount, '$dueDate')";
             $result = mysqli_query($con, $sql);
 
             if (!$result) {
