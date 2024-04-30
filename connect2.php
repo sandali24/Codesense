@@ -52,13 +52,13 @@ if ($con) {
                             <td>$selectedLotId</td>
                             <td>$first_name</td>
                             <td>$sellingPrice</td>
-                            <td>Some schedule</td>
+                            <td><a href='#payment_schedule'>View</a></td>
                         </tr>
                     </table>";
 
 // Create the payment schedule table
 echo "<br><br>";
-echo "<table border='1'>
+echo "<table border='1' id='payment_schedule'>
         <tr>
             <th>Payment Date</th>
             <th>Amount</th>
@@ -94,7 +94,7 @@ echo "</table>";
             // Insert data into the re_salesadvanceshedule table
             // (Replace with your actual table and column names)
             $sql = "INSERT INTO re_salesadvanceshedule (res_code,installment_number, amount, due_date)
-                    VALUES ($res_code,$i, $installmentAmount, '$dueDate')";
+                    VALUES ($res_code,$i-1, $installmentAmount, '$dueDate')";
             $result = mysqli_query($con, $sql);
 
             if (!$result) {
