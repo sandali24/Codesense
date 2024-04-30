@@ -133,7 +133,6 @@
 
 
 
-
     
         
 
@@ -144,9 +143,6 @@
         
 
         
-
-        <!-- <label for="instalments">Number of Instalments (max 6 months):</label>
-        <input type="number" id="instalments" name="instalments" min="1" max="6" required><br> -->
 
         
   
