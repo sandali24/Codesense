@@ -21,10 +21,48 @@ if ($con) {
             // Retrieve the auto-generated cus_code
             $cus_code = $con->insert_id;
 
+            // Retrieve the project name based on the selected project ID
+            $projectName = '';
+            $projectQuery = "SELECT project_name FROM re_projectms WHERE prj_id = '$selectedProjectId'";
+            $projectResult = $con->query($projectQuery);
+            if ($projectResult->num_rows > 0) {
+                $projectRow = $projectResult->fetch_assoc();
+                $projectName = $projectRow['project_name'];
+            }
+
+
+
+
+
+
+
+
+
+
             // Insert data into the re_resevation table
             $sql = "INSERT INTO re_resevation (cus_code,res_date, seling_price, prj_id, lot_id) VALUES ('$cus_code','$reservationDate', '$sellingPrice', '$selectedProjectId', '$selectedLotId')";
             if ($con->query($sql) === TRUE) {
-                echo "Data inserted successfully!";
+
+                echo "<table border='1'>
+                        <tr>
+                            <th>Res Code</th>
+                            <th>Res Date</th>
+                            <th>Project Name</th>
+                            <th>Lot Number</th>
+                            <th>Customer Name</th>
+                            <th>Total Price</th>
+                            <th>Schedule</th>
+                        </tr>
+                        <tr>
+                            <td>$cus_code</td>
+                            <td>$reservationDate</td>
+                            <td>$projectName</td>
+                            <td>$selectedLotId</td>
+                            <td>$first_name</td>
+                            <td>$sellingPrice</td>
+                            <td>Some schedule</td>
+                        </tr>
+                    </table>";
             } else {
                 echo "Error: " . $sql . "<br>" . $con->error;
             }
